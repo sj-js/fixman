@@ -1,0 +1,31 @@
+language: node_js
+node_js: 11.10.0
+os:
+  - linux
+before_script:
+  - npm install -g gulp
+script: gulp
+
+cache:
+  directories:
+    - "node_modules"
+
+before_deploy:
+  - pwd
+  - ls dist/js/
+  
+deploy:
+  - provider: releases
+    api_key:
+      secure: "jqQ/UeM6/kd6mpkrXcYoggM1qAVaSAozqR2HDDry5YIHxOhB8KwYq9C4tUCPBFT2ux5kFodUuFmEDrHsIJsO2Z7rlI8Uil8lLzr6ZqSgGPD6avDBcyatSPBjHj0+xl57qLHqH009PkH1KYjPFTafMF1RS5A89UB7Pof+MjdJBzMgdUAmCyRcE+VF1rtdCVjeTtmnMkT0NqjEJ38/iIWpdSYFT7AzSZLEn4sG5TsiLgZW+vx+Zm5Tv48irJ+vZ+w3fzPFLrS8L0U4/ItLDT5+P8rKg95GAm08Yn/PFGE16vwl9oCRPXydzfayZjY/9pOmjFifA9eHdCPryW/oJZkFHAtiICozCubHF3ETOjAQB/s3OJLS9i7pMcYIcC93reh6qWVCnfyre+Qr7JxNb/+y9mzAbytiIY/oiXnnRmWrMB8TEsfeeBNkCmv3Ff115r0zKxhkmrK9Ip0/T3Cc+eAzreQL/71t3+x5vlDEKfdNltySWYLIBnWW68rUgGwPYCeeUKjtpMNm9rLAWaSnFtvV5cLmxwLzwizoGzRN+DmPFEuPemuuNv2Lc1zpsy3FEQOXnO1ngUDtks71GxK8oTu+Qi95luBP+5+mraQkmK7tcRclEr1d9heqp1KS1cul9L98a1FRPq+lUF62tRNxHgDbWMj1cCL48+cAnefAbNLUnr4="
+    file: dist/js/fixman.min.js
+    skip_cleanup: true
+    on:
+      repo: sj-js/fixman
+      branch: master
+  - provider: npm
+    email: "$NPM_EMAIL"
+    api_key: "$NPM_API_TOKEN"
+    skip_cleanup: true
+    on:
+      branch: master

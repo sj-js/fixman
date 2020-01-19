@@ -1,6 +1,6 @@
 {
   "name": "@sj-js/fixman",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "fix something",
   "main": "./index.js",
   "author": "souljungkim@gmail.com",
@@ -14,6 +14,9 @@
     "type": "git",
     "url": "https://github.com/sj-js/fixman.git",
     "web": "https://github.com/sj-js/fixman"
+  },
+  "dependencies": {
+    "@sj-js/crossman": "^1.0.4"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
@@ -37,8 +40,5 @@
     "lodash": "4.17.13",
     "lodash.template": "4.5.0",
     "open": "6.0.0"
-  },
-  "dependencies": {
-    "@sj-js/crossman": "^1.0.3"
   }
 }

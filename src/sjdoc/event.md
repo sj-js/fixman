@@ -46,11 +46,12 @@ FixMan.EVENT_ANIMATIONENDBYOBJECTHEIGHT | Scroll-Down시 Original Element의 영
             color:#fff; text-align:center; font-size: 70px;
         }
         #logo-clone { 
-            position: initial; transform: initial; display: inline-block; font-size: 1px; transition: 1s;
+            position: initial; transform: initial; display: inline-block; font-size: 25px; transition: 1s;
             border: 3px solid yellow; border-radius: 25px; background: #b9b63b; opacity: 0; cursor: pointer;
         }
         .test1 { 
-            display:block; vertical-align:top; width:350px; height:200px; border:2px solid black; border-radius:20px; 
+            display:block; vertical-align:top; width:350px; height:200px; border:2px solid black; border-radius:20px;
+            margin-bottom: 200px; 
         }
     </style>
 
@@ -61,21 +62,25 @@ FixMan.EVENT_ANIMATIONENDBYOBJECTHEIGHT | Scroll-Down시 Original Element의 영
                 <span id="title-logo" style="vertical-align:bottom; border:0px">🥝</span>
             </span>
         </div>
-        <div class="test1" style="background:pink;">Hello?</div><br/><br/><br/><br/>
-        <div class="test1" style="background:skyblue;">Annyeong?</div><br/><br/><br/><br/><br/>
-        <div class="test1" style="background:gold;">Konnichiwa? and Nihao? or Hola?</div><br/><br/><br/><br/><br/><br/>
-        <div class="test1" style="background:gold;">안녕? 좋은하루!? :D</div><br/><br/><br/><br/><br/>
+        <div class="test1" style="background:pink;">Hello?</div>
+        <div class="test1" style="background:skyblue;">Annyeong?</div>
+        <div class="test1" style="background:gold;">Konnichiwa? and Nihao? or Hola?</div>
+        <div class="test1" style="background:gold;">안녕? 좋은하루!? :D</div>
     </body>
 
     <script>
         fixman.addEventListener('title-context', FixMan.EVENT_ANIMATIONSTARTBYOBJECTHEIGHT, function(object){
-            cloneEl('title-logo', true).attr('id', 'logo-clone').removeClass('title-text').appendTo(document.body).addEventListener('click', function(){
+            var logoElement = document.getElementById('title-logo');
+            var clonedLogo = logoElement.cloneNode(true);
+            clonedLogo.setAttribute('id', 'logo-clone');
+            clonedLogo.addEventListener('click', function(){
                 window.scrollTo({top:0, behavior:'smooth'}); 
-            }); 
+            });
+            document.body.appendChild(clonedLogo);
             setTimeout(function(){
-                getEl('logo-clone').exists(function(it){
-                    it.style('position:fixed; left:0px; top:0px;').setStyle('borderRadius', '50px 50px 50px 50px').setStyle('opacity', '1').setStyle('fontSize', '35px');
-                });
+                var clonedLogo = document.getElementById('logo-clone');
+                if (clonedLogo)
+                    clonedLogo.style.cssText = 'position:fixed; left:0px; top:0px; border-radius:50px 50px 50px 50px; opacity:1; fontSize:35px;';
             }, 1);
         });
         fixman.addEventListener('title-context', FixMan.EVENT_ANIMATIONBYOBJECTHEIGHT, function(data){
@@ -85,14 +90,17 @@ FixMan.EVENT_ANIMATIONENDBYOBJECTHEIGHT | Scroll-Down시 Original Element의 영
             object.style.transform = 'translateX('+ -(window.innerWidth/2 *rate) +'px) translateY('+ -(data.fixableObjectHeight *rate) +'px) scaleY('+ rateReverse +')';
         });
         fixman.addEventListener('title-context', FixMan.EVENT_DETACH, function(object){
-            getEl('logo-clone').exists(function(it){
-                it.setStyle('borderRadius', '45px').setStyle('opacity', '0');
+            var clonedLogo = document.getElementById('logo-clone');
+            if (clonedLogo){
+                clonedLogo.style.borderRadius = '45px';
+                clonedLogo.style.opacity = '0';
                 setTimeout(function(){
-                    if (!object.statusFixed && it.exists() && it.existsParent())
-                        it.removeFromParent();
+                    var clonedLogo = document.getElementById('logo-clone');
+                    if (!object.statusFixed && clonedLogo && clonedLogo.parentNode)
+                        clonedLogo.parentNode.removeChild(clonedLogo);
                 }, 1000);
-            });
-        });  
+            }       
+        });
     </script>
     ```
 

@@ -11,8 +11,9 @@ try{
     ;
 }catch(e){}
 
-
-
+/***************************************************************************
+ * Module
+ ***************************************************************************/
 function FixMan(options){
     var that = this;
     this.event = new SjEvent();
@@ -31,13 +32,6 @@ function FixMan(options){
         that.whenScroll(event);
     });
 }
-FixMan.EVENT_AFTERDETECT = 'afterdetect';
-FixMan.EVENT_DETACH = 'detach';
-FixMan.EVENT_ANIMATIONBYOBJECTHEIGHT = 'animationbyobjectheight';
-FixMan.EVENT_ANIMATIONSTARTBYOBJECTHEIGHT = 'animationstartbyobjectheight';
-FixMan.EVENT_ANIMATIONDOINGBYOBJECTHEIGHT = 'animationdoingbyobjectheight';
-FixMan.EVENT_ANIMATIONENDBYOBJECTHEIGHT = 'animationendbyobjectheight';
-
 
 /***************************************************************************
  * [Node.js] exports
@@ -47,6 +41,15 @@ try {
 } catch (e) {}
 
 
+
+
+
+FixMan.EVENT_AFTERDETECT = 'afterdetect';
+FixMan.EVENT_DETACH = 'detach';
+FixMan.EVENT_ANIMATIONBYOBJECTHEIGHT = 'animationbyobjectheight';
+FixMan.EVENT_ANIMATIONSTARTBYOBJECTHEIGHT = 'animationstartbyobjectheight';
+FixMan.EVENT_ANIMATIONDOINGBYOBJECTHEIGHT = 'animationdoingbyobjectheight';
+FixMan.EVENT_ANIMATIONENDBYOBJECTHEIGHT = 'animationendbyobjectheight';
 
 
 
@@ -139,20 +142,30 @@ FixMan.prototype.checkFixableObject = function(){
             var obj = this.fixedObjList[j];
             //obj 최초의 값을 기억합니다.
             if (!obj.qMenuY && obj.style.position != 'fixed'){
+                var style = window.getComputedStyle(obj, null);
+                var ml = parseInt(style.marginLeft?style.marginLeft:0);
+                var bl = parseInt(style.borderLeftWidth?style.borderLeftWidth:0);
+                var pl = parseInt(style.paddingLeft?style.paddingLeft:0);
                 obj.qMenuY = obj.offsetTop;
-                obj.qMenuX = obj.offsetLeft;
+                obj.qMenuX = obj.offsetLeft -ml;
                 obj.qMenuCssText = obj.style.cssText;
                 obj.qMenuWidth = obj.clientWidth;
                 obj.qMenuHeight = obj.clientHeight;
                 obj.qMenuClassName = obj.className;
+                // console.log(
+                //     getEl(obj).getBoundingOffsetRect(),
+                //     getEl(obj).getBoundingClientRect(),
+                //     getEl(obj).getBoundingPageRect(),
+                // );
+                // console.log(obj.offsetLeft, obj.clientLeft, obj.scrollLeft, style);
             }
             //obj를 fixed시키기 전에 같은 크기의 모형Element를 만들어 임시 지지대 역할을 합니다.
             if (!obj.emptyDiv){
-                obj.emptyDiv = newEl('div').style(obj.qMenuCssText).returnElement();
-                if (!obj.emptyDiv.clientWidth)
-                    obj.emptyDiv.style.width = obj.qMenuWidth;
-                if (!obj.emptyDiv.clientHeight)
-                    obj.emptyDiv.style.height = obj.qMenuHeight;
+                var emptyDiv = obj.emptyDiv = newEl('div').style(obj.qMenuCssText).returnElement();
+                if (!emptyDiv.clientWidth)
+                    emptyDiv.style.width = obj.qMenuWidth +'px';
+                if (!emptyDiv.clientHeight)
+                    emptyDiv.style.height = obj.qMenuHeight +'px';
             }
             /** 천장에 닿으면 **/
             if (0 > obj.qMenuY - getEl().getBodyScrollY()){
@@ -192,7 +205,8 @@ FixMan.prototype.checkFixableObject = function(){
                         //Style
                         getEl(obj).removeClass('sj-obj-fixed')
                             .setStyle('position', '')
-                            .setStyle('top', obj.qMenuY +'px');
+                            .setStyle('top', '')
+                            .setStyle('left', '');
                     })();
                 }
             }
