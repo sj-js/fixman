@@ -23,8 +23,12 @@
         </script>
         ```  
     - ES6+
+        ```bash
+        npm i @sj-js/fixman
+        ```
         ```js
-        const fixman = require('@sj-js/fixman');
+        const FixMan = require('@sj-js/fixman');
+        const fixman = new FixMan();
         ```
    
 1. Set `data-fixed` to target element   
