@@ -6,8 +6,8 @@
 [![License](https://img.shields.io/github/license/sj-js/fixman.svg)](https://github.com/sj-js/fixman/releases)
 
 - Causes the Element to be dragged around the screen without being obscured by scrolling
-- Source: https://github.com/sj-js/fixman
-- Document: https://sj-js.github.io/sj-js/fixman
+- ✨ Source: https://github.com/sj-js/fixman
+- ✨ Document: https://sj-js.github.io/sj-js/fixman
     
       
         
@@ -23,63 +23,56 @@
 
 ## 1. Getting Started
 
-### 1-1. How to use
-
-1. Load library and new instance
-    - Browser
-        ```html
-        <script src="https://cdn.jsdelivr.net/gh/sj-js/crossman/dist/js/crossman.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/sj-js/fixman/dist/js/fixman.js"></script>
-        <script>
-             var fixman = new FixMan().detect();
-        </script>
-        ```  
-    - ES6+
-        ```bash
-        npm i @sj-js/fixman
-        ```
-        ```js
-        const FixMan = require('@sj-js/fixman');
-        const fixman = new FixMan().detect();
-        ```
-   
-2. Set `data-fixed` to target element   
-   ```html
-   <div data-fixed>Hello</div>
-   ```
-   
-3. Run `detect()` then, When Page is Loaded, detect and apply elements with a `data-fixed` attribute    
-   ```js
-   fixman.detect();
-   ```
-
-
-
-### 1-2. Simple Example
-- For convenience, the following code, which loads and creates a Library in the example, is omitted.
+### 1-1. How to load?
+- Browser
     ```html
-    <script src="https://cdn.jsdelivr.net/gh/sj-js/crossman/dist/js/crossman.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/sj-js/fixman/dist/js/fixman.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@sj-js/crossman/dist/js/crossman.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@sj-js/fixman/dist/js/fixman.min.js"></script>
     <script>
-         var fixman = new FixMan().detect();
+         var fixman = new FixMan();
     </script>
-    ```
-  
+    ```  
     *@* *+prefix* *x* *@* 
     ```html
     <script src="../crossman/crossman.js"></script>
     <script src="../fixman/fixman.js"></script>
     <script>
-         var fixman = new FixMan().detect();
+        var fixman = new FixMan();
     </script>
-    ```    
+    ```  
+- ES6+
+    ```bash
+    npm i @sj-js/fixman
+    ```
+    ```js
+    const FixMan = require('@sj-js/fixman');
+    const fixman = new FixMan();
+    ```
+  
+   
 
-- Example A
+### 1-2. Simple Example
+For convenience, 1-1 code, which loads and creates a Library in the example, is omitted.
+
+### Example - fix top 
+1. Set `data-fixed` to target element   
+   ```html
+   <div data-fixed>Hello</div>
+   ```
+   
+2. Run `detect()` then, When Page is Loaded, detect and apply elements with a `data-fixed` attribute    
+   ```js
+   fixman.detect();
+   ```
+3. 👨‍💻
     *@* *!* *@*
     ```html
     <style>
         .test1 { display:block; height:50px; border:2px solid black; margin-bottom:200px; }
     </style>
+    <script>
+        fixman.detect();
+    </script>
     <body>
         <div class="test1">Please scroll down.</div>
         <div class="test1" style="width:500px; background:#FFFFFF;" data-fixed>
@@ -94,13 +87,17 @@
     </body>
     ``` 
 
-- Example B
+### Example - fix multiple
+- 👨‍💻
     *@* *!* *@*
     ```html
     <style>
         .test1 { display:block; vertical-align:top; width:350px; height:50px; border:2px solid black; margin-bottom:200px; }
         .test2 { display:inline-block; vertical-align:top; width:25px; height:25px; border:2px solid black; }
     </style>
+    <script>
+        fixman.detect();
+    </script>
     <body>
         <div class="test1">Please scroll down.</div>
         <div class="test1" style="background:#FFFFFF;">

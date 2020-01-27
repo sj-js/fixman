@@ -11,24 +11,14 @@ FixMan.EVENT_ANIMATIONSTARTBYOBJECTHEIGHT | Scroll-Down시 Original Element의 �
 FixMan.EVENT_ANIMATIONDOINGBYOBJECTHEIGHT | Scroll-Down시 Original Element의 영역 가려지기 시작할 때부터 완전히 가려질 때까지 
 FixMan.EVENT_ANIMATIONENDBYOBJECTHEIGHT | Scroll-Down시 Original Element의 영역이 완전히 가려질 때
 
-#### ※ 자동적용
-- 편의를 위해서 예제에서는 다음 코드가 생략되어 있습니다.
-    ```html
-    <script src="https://cdn.jsdelivr.net/gh/sj-js/crossman/dist/js/crossman.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/sj-js/fixman/dist/js/fixman.js"></script>
-    <script>
-         var fixman = new FixMan().detect();
-    </script>
-    ```  
-    
-    *@* *+prefix* *x* *@* 
-    ```html
-    <script src="../crossman/crossman.js"></script>
-    <script src="../fixman/fixman.js"></script>
-    <script>
-         var fixman = new FixMan().detect();
-    </script>
-    ```
+*@* *+prefix* *x* *@* 
+```html
+<script src="../crossman/crossman.js"></script>
+<script src="../fixman/fixman.js"></script>
+<script>
+     var fixman = new FixMan();
+</script>
+```
 
 
 
@@ -69,6 +59,7 @@ FixMan.EVENT_ANIMATIONENDBYOBJECTHEIGHT | Scroll-Down시 Original Element의 영
     </body>
 
     <script>
+        fixman.detect();
         fixman.addEventListener('title-context', FixMan.EVENT_ANIMATIONSTARTBYOBJECTHEIGHT, function(object){
             var logoElement = document.getElementById('title-logo');
             var clonedLogo = logoElement.cloneNode(true);
